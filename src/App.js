@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Heart, Star, Trash2 } from 'lucide-react';
+import { Heart, Trash2 } from 'lucide-react';
 
-export default function SimpleApp() {
+function App() {
   const [tasks, setTasks] = useState([
     { id: 1, text: 'Learn React', completed: false, favorite: false },
     { id: 2, text: 'Build an app', completed: false, favorite: true },
@@ -160,3 +160,5 @@ export default function SimpleApp() {
     </div>
   );
 }
+
+export default App;
