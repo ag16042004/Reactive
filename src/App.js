@@ -40,122 +40,298 @@ function App() {
   const completedCount = tasks.filter(task => task.completed).length;
   const favoriteCount = tasks.filter(task => task.favorite).length;
 
+  const styles = {
+    container: {
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #e0f2fe 0%, #e8eaf6 100%)',
+      padding: '24px',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+    },
+    card: {
+      maxWidth: '672px',
+      margin: '0 auto',
+      backgroundColor: 'white',
+      borderRadius: '16px',
+      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+      padding: '32px'
+    },
+    header: {
+      textAlign: 'center',
+      marginBottom: '32px'
+    },
+    title: {
+      fontSize: '30px',
+      fontWeight: 'bold',
+      color: '#1f2937',
+      marginBottom: '8px'
+    },
+    subtitle: {
+      color: '#6b7280'
+    },
+    statsGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gap: '16px',
+      marginBottom: '32px'
+    },
+    statCard: {
+      padding: '16px',
+      borderRadius: '8px',
+      textAlign: 'center'
+    },
+    statCardBlue: {
+      backgroundColor: '#eff6ff'
+    },
+    statCardGreen: {
+      backgroundColor: '#f0fdf4'
+    },
+    statCardRed: {
+      backgroundColor: '#fef2f2'
+    },
+    statNumber: {
+      fontSize: '24px',
+      fontWeight: 'bold',
+      marginBottom: '4px'
+    },
+    statNumberBlue: {
+      color: '#2563eb'
+    },
+    statNumberGreen: {
+      color: '#16a34a'
+    },
+    statNumberRed: {
+      color: '#dc2626'
+    },
+    statLabel: {
+      fontSize: '14px'
+    },
+    inputContainer: {
+      display: 'flex',
+      gap: '12px',
+      marginBottom: '24px'
+    },
+    input: {
+      flex: 1,
+      padding: '12px 16px',
+      border: '1px solid #d1d5db',
+      borderRadius: '8px',
+      fontSize: '16px',
+      outline: 'none'
+    },
+    addButton: {
+      padding: '12px 24px',
+      backgroundColor: '#2563eb',
+      color: 'white',
+      border: 'none',
+      borderRadius: '8px',
+      fontWeight: '500',
+      cursor: 'pointer',
+      transition: 'background-color 0.2s'
+    },
+    taskList: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '12px'
+    },
+    taskItem: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px',
+      padding: '16px',
+      border: '1px solid #e5e7eb',
+      borderRadius: '8px',
+      transition: 'all 0.2s'
+    },
+    taskItemCompleted: {
+      backgroundColor: '#f0fdf4',
+      borderColor: '#bbf7d0'
+    },
+    taskItemIncomplete: {
+      backgroundColor: '#f9fafb',
+      borderColor: '#e5e7eb'
+    },
+    checkbox: {
+      width: '20px',
+      height: '20px'
+    },
+    taskText: {
+      flex: 1,
+      fontSize: '16px'
+    },
+    taskTextCompleted: {
+      textDecoration: 'line-through',
+      color: '#6b7280'
+    },
+    taskTextIncomplete: {
+      color: '#1f2937'
+    },
+    iconButton: {
+      padding: '8px',
+      border: 'none',
+      borderRadius: '8px',
+      cursor: 'pointer',
+      transition: 'all 0.2s',
+      backgroundColor: 'transparent'
+    },
+    favoriteButton: {
+      color: '#6b7280'
+    },
+    favoriteButtonActive: {
+      color: '#dc2626'
+    },
+    deleteButton: {
+      color: '#6b7280'
+    },
+    emptyState: {
+      textAlign: 'center',
+      padding: '48px 0',
+      color: '#6b7280'
+    },
+    emptyIcon: {
+      fontSize: '48px',
+      marginBottom: '16px'
+    },
+    progressContainer: {
+      marginTop: '32px'
+    },
+    progressHeader: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      fontSize: '14px',
+      color: '#6b7280',
+      marginBottom: '8px'
+    },
+    progressBar: {
+      width: '100%',
+      height: '12px',
+      backgroundColor: '#e5e7eb',
+      borderRadius: '6px',
+      overflow: 'hidden'
+    },
+    progressFill: {
+      height: '100%',
+      backgroundColor: '#2563eb',
+      transition: 'width 0.3s ease'
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-xl p-8">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">
-              Task Manager
-            </h1>
-            <p className="text-gray-600">
-              Stay organized and productive
-            </p>
-          </div>
+    <div style={styles.container}>
+      <div style={styles.card}>
+        <div style={styles.header}>
+          <h1 style={styles.title}>Task Manager</h1>
+          <p style={styles.subtitle}>Stay organized and productive</p>
+        </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 mb-8">
-            <div className="bg-blue-50 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600">{tasks.length}</div>
-              <div className="text-sm text-blue-600">Total Tasks</div>
-            </div>
-            <div className="bg-green-50 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-green-600">{completedCount}</div>
-              <div className="text-sm text-green-600">Completed</div>
-            </div>
-            <div className="bg-red-50 rounded-lg p-4 text-center">
-              <div className="text-2xl font-bold text-red-600">{favoriteCount}</div>
-              <div className="text-sm text-red-600">Favorites</div>
-            </div>
+        <div style={styles.statsGrid}>
+          <div style={{...styles.statCard, ...styles.statCardBlue}}>
+            <div style={{...styles.statNumber, ...styles.statNumberBlue}}>{tasks.length}</div>
+            <div style={{...styles.statLabel, ...styles.statNumberBlue}}>Total Tasks</div>
           </div>
-
-          {/* Add Task Form */}
-          <div className="flex gap-3 mb-6">
-            <input
-              type="text"
-              value={newTask}
-              onChange={(e) => setNewTask(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && addTask()}
-              placeholder="Add a new task..."
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-            <button
-              onClick={addTask}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-            >
-              Add Task
-            </button>
+          <div style={{...styles.statCard, ...styles.statCardGreen}}>
+            <div style={{...styles.statNumber, ...styles.statNumberGreen}}>{completedCount}</div>
+            <div style={{...styles.statLabel, ...styles.statNumberGreen}}>Completed</div>
           </div>
+          <div style={{...styles.statCard, ...styles.statCardRed}}>
+            <div style={{...styles.statNumber, ...styles.statNumberRed}}>{favoriteCount}</div>
+            <div style={{...styles.statLabel, ...styles.statNumberRed}}>Favorites</div>
+          </div>
+        </div>
 
-          {/* Task List */}
-          <div className="space-y-3">
-            {tasks.length === 0 ? (
-              <div className="text-center py-12 text-gray-500">
-                <div className="text-4xl mb-4">📝</div>
-                <p>No tasks yet. Add one above to get started!</p>
-              </div>
-            ) : (
-              tasks.map(task => (
-                <div
-                  key={task.id}
-                  className={`flex items-center gap-3 p-4 border rounded-lg transition-all ${
-                    task.completed
-                      ? 'bg-green-50 border-green-200'
-                      : 'bg-gray-50 border-gray-200 hover:bg-gray-100'
-                  }`}
+        <div style={styles.inputContainer}>
+          <input
+            type="text"
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && addTask()}
+            placeholder="Add a new task..."
+            style={styles.input}
+          />
+          <button
+            onClick={addTask}
+            style={styles.addButton}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#1d4ed8'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = '#2563eb'}
+          >
+            Add Task
+          </button>
+        </div>
+
+        <div style={styles.taskList}>
+          {tasks.length === 0 ? (
+            <div style={styles.emptyState}>
+              <div style={styles.emptyIcon}>📝</div>
+              <p>No tasks yet. Add one above to get started!</p>
+            </div>
+          ) : (
+            tasks.map(task => (
+              <div
+                key={task.id}
+                style={{
+                  ...styles.taskItem,
+                  ...(task.completed ? styles.taskItemCompleted : styles.taskItemIncomplete)
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => toggleTask(task.id)}
+                  style={styles.checkbox}
+                />
+                <span
+                  style={{
+                    ...styles.taskText,
+                    ...(task.completed ? styles.taskTextCompleted : styles.taskTextIncomplete)
+                  }}
                 >
-                  <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => toggleTask(task.id)}
-                    className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
-                  />
-                  <span
-                    className={`flex-1 ${
-                      task.completed
-                        ? 'line-through text-gray-500'
-                        : 'text-gray-800'
-                    }`}
-                  >
-                    {task.text}
-                  </span>
-                  <button
-                    onClick={() => toggleFavorite(task.id)}
-                    className={`p-2 rounded-lg transition-colors ${
-                      task.favorite
-                        ? 'text-red-600 hover:bg-red-100'
-                        : 'text-gray-400 hover:bg-gray-200 hover:text-red-600'
-                    }`}
-                  >
-                    <Heart className={`w-5 h-5 ${task.favorite ? 'fill-current' : ''}`} />
-                  </button>
-                  <button
-                    onClick={() => deleteTask(task.id)}
-                    className="p-2 text-gray-400 hover:bg-red-100 hover:text-red-600 rounded-lg transition-colors"
-                  >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                </div>
-              ))
-            )}
-          </div>
-
-          {/* Progress Bar */}
-          {tasks.length > 0 && (
-            <div className="mt-8">
-              <div className="flex justify-between text-sm text-gray-600 mb-2">
-                <span>Progress</span>
-                <span>{Math.round((completedCount / tasks.length) * 100)}%</span>
+                  {task.text}
+                </span>
+                <button
+                  onClick={() => toggleFavorite(task.id)}
+                  style={{
+                    ...styles.iconButton,
+                    ...(task.favorite ? styles.favoriteButtonActive : styles.favoriteButton)
+                  }}
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#fee2e2'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                >
+                  <Heart size={20} fill={task.favorite ? 'currentColor' : 'none'} />
+                </button>
+                <button
+                  onClick={() => deleteTask(task.id)}
+                  style={{...styles.iconButton, ...styles.deleteButton}}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#fee2e2';
+                    e.target.style.color = '#dc2626';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'transparent';
+                    e.target.style.color = '#6b7280';
+                  }}
+                >
+                  <Trash2 size={20} />
+                </button>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
-                <div
-                  className="bg-blue-600 h-3 rounded-full transition-all duration-300"
-                  style={{ width: `${(completedCount / tasks.length) * 100}%` }}
-                ></div>
-              </div>
-            </div>
+            ))
           )}
         </div>
+
+        {tasks.length > 0 && (
+          <div style={styles.progressContainer}>
+            <div style={styles.progressHeader}>
+              <span>Progress</span>
+              <span>{Math.round((completedCount / tasks.length) * 100)}%</span>
+            </div>
+            <div style={styles.progressBar}>
+              <div
+                style={{
+                  ...styles.progressFill,
+                  width: `${(completedCount / tasks.length) * 100}%`
+                }}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
